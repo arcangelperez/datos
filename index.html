@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, width=device-width, height=device-height">
+        <meta name="msapplication-tap-highlight" content="no">
+        <script type="text/javascript" src="cordova.js"></script>
+   	 	<script type="text/javascript" src="https://arcangelperez.000webhostapp.com/AgregarDatos/jquery-2.1.1.min.js"></script>	
+<script charset="utf−8" type="text/javascript"> 
+	function connect(e) 
+			{ 
+			var term= {button:e}; 
+				$.ajax({ 
+					url:"https://arcangelperez.000webhostapp.com/AgregarDatos/agregar.php", 
+					type:'POST', 
+					data:term, 
+					dataType:"JSON", 
+					error:function(jqXHR,text_status,strError){ 
+						alert("no connection");}, 
+					timeout:60000, 
+					success:function(data){ 
+						$("#result").html("");
+						var tr;
+						for(var i=0; i<data.length;i++){ 
+							tr = $('<tr/>');
+					tr.append("<td>" +data[i].ID+"</td>");
+					tr.append("<td>" + data[i].NOMBRE+"</td>");
+					tr.append("<td>" + data[i].SALDO+ "</td>");
+					$('#tabla').append(tr);
+														}
+				for(var i in data){ 
+				$("#result").append("<li>"+"ID:<strong>"+data[i].ID+"</strong>"+" Nombre:<strong>"+data[i].NOMBRE+"</strong>"+" Su Saldo es:<strong>"+data[i].SALDO+"</strong>"+"</li>"); 
+								}
+					} 
+				});
+			} 
+</script>
+         <title>Saldos</title>
+    </head>
+   
+    <body>
+   
+ <div> 
+	   <div data-role="header"><center><h1>Relacion de Saldos</h1></center></div>
+<br>
+<hr>
+<center><input onclick="connect(this.value)" type="button" value="mostrar" /></center> 
+ <br>
+<center><b>Resultado</b></center> 
+ <table id="tabla" border="1px solid black">
+<tr>
+	<th>ID</th>
+	<th>NOMBRE</th>
+	<th>SALDO</th>
+</tr>
+</table>
+<div id="result">
+	<ul id="contenedorLista">	
+	</ul>
+</div>
+</div>
+    </body>
+</html>
